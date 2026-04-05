@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="hy">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Քո համար ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #703877, #4f8ea0, #e08555);
+            color: white;
+            overflow: hidden;
+        }
+
+        .screen {
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #d4af37, #f9e27d);
+            color: black;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .big-heart {
+            font-size: 70px;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .photo {
+            width: 220px;
+            border-radius: 20px;
+            margin-top: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 💖 Սրտիկներ */
+        .heart {
+            position: fixed;
+            top: -10px;
+            color: #ff6b81;
+            font-size: 18px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+
+        .fade {
+            animation: fadeIn 1.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="music" loop>
+        <source src="music.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Экран 1 -->
+    <div id="screen1" class="screen active fade">
+        <h1>Ես քո համար անակնկալ ունեմ․․․❤️</h1>
+        <button onclick="next(2)">Ապա ապա</button>
+    </div>
+
+    <!-- Երկրորդ էկրան -->
+    <div id="screen2" class="screen fade">
+        <div class="big-heart">❤️</div>
+        <h1>Պատրաստ ես՞😏</h1>
+        <button onclick="next(3)">Այո😊</button>
+        <button onclick="noClicked(3)">Ոչ😒</button>
+    </div>
+
+    <!-- Экրան 3 -->
+    <div id="screen3" class="screen fade">
+        <h1>Happy Birthday KYANQS🎉</h1>
+        <img src="photo.jpg" class="photo">
+        <p>
+            Խենթանում եմ քո պատճառով ու քեզ համար,<br>
+            խենթանում եմ ու հասկանում, որ կարոտը մի գույն ունի,<br>
+            և դա գույնն է քո աչքերի։<br>
+
+            Որ թախիծը մի ձև ունի,<br>
+            և դա ձևն է քո աչքերի։<br>
+
+            Ու ես այսօր հասկանում եմ,<br>
+            որ անսահման խենթությունն էլ ունի սահման,<br>
+            ու սահմանին դու ես կանգնած…<br>
+            մեկ էլ՝ Աստված 💖<br>
+            Շնորհավոր ծնունդդ կյաաանննքսսս 😘💕
+        </p>
+        <button onclick="playMusic()">🎵🎵🎵</button>
+    </div>
+
+    <script>
+        function next(n) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + n).classList.add('active');
+        }
+        function noClicked() {
+            // Ստեղծել smile-երը animation-ով
+            const createAngrySmile = () => {
+                const smile = document.createElement("div");
+                smile.innerHTML = "😡🤬";
+                smile.style.position = "fixed";
+                smile.style.left = Math.random() * 100 + "vw"; // պատահական դիրք horizontal
+                smile.style.top = "-30px"; // էկրանի վերևից դուրս
+                smile.style.fontSize = "25px";
+                smile.style.zIndex = "1000";
+                smile.style.pointerEvents = "none";
+
+                // Կարճ animation՝ վերև բարձրանալով
+                smile.style.transition = "transform 3s linear, opacity 3s linear";
+                document.body.appendChild(smile);
+
+                // Այսպես անիմացիան աշխատի
+                setTimeout(() => {
+                    smile.style.transform = `translateY(110vh)`; // բարձրանալով վերև
+                    smile.style.opacity = "0";
+                }, 50);
+
+                // Հանել DOM-ից animation-ից հետո
+                setTimeout(() => smile.remove(), 3100);
+            };
+
+            // Ստեղծել մի քանի smile-եր, օրինակ ամեն 400ms
+            const smileInterval = setInterval(createAngrySmile, 400);
+
+            // Կարող ես որոշ ժամանակ անց կանգնեցնել
+            setTimeout(() => clearInterval(smileInterval), 5000); // 5 վայրկյան առաջ
+        }
+
+        function playMusic() {
+            document.getElementById("music").play();
+        }
+
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "💛";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }, 400);
+    </script>
+
+</body>
+
+</html>
